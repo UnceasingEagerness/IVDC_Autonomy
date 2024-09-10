@@ -26,31 +26,28 @@ con = imadjust(grayImage);
 
 %Averaging filter to remove noise
 F = fspecial("average", 5);  % Smaller filter size to avoid over-smoothing
-eqFil = imfilter(con, F,"replicate");
+Filt = imfilter(con, F,"replicate");
 
-% Edge detection using Canny
-edges = edge(eqFil);
+% Edge detection 
+edges = edge(Filt);
 subplot(2,2,2)
 imshow(edges)
 title("Detected edges")
 
 % Morphological closing with a line element 
 s = strel('line',90, 0);  
-%s = strel('disk',5);
 edgeM = imclose(edges, s);
 
 % Morphological closing with a disk element
 s1 = strel('line', 10,0);  % Reduced size of disk element
-edg = imclose(edgeM, s1);
-%edg = edg(300:end,1:end);
+edgM1 = imclose(edgeM, s1);
 el=strel("diamond",5);
-edg1=imclose(edg,el);
+edg1=imclose(edgM1,el);
 
 %Cropping the upper half of the image
 [rows, cols, ~] = size(edg1);
 edg1(1:floor(rows/2), :, :) = 255;
 s = strel('disk',18);  
-%s = strel('disk',5);
 final_lane = imclose(edg1, s);
 subplot(2,2,3)
 imshow(final_lane)
