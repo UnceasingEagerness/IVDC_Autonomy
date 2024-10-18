@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Unconstrained Model Predictive Control Implementation in Python
-- This version is without an observer, that is, it assumes that the
-  state vector is perfectly known
-"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
