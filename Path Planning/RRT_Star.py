@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-The following is a boiler code for the implementation of the RRT* algorithm. complete the code.
-"""
+
 
 
 
