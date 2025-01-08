@@ -1,3 +1,0 @@
-[console_scripts]
-black_road_detection_node = lane_detection.lane_detection_node:main
-
