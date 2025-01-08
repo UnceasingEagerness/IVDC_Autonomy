@@ -28,9 +28,11 @@ gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 ### **3.Black Region Detection(Thresholding)**
 Thresholding is applied to detect dark regions in the grayscale image, isolating black road sections:
 ```python  
-_, binary = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY)
+_, binary = cv2.threshold(gray, 130, 255, cv2.THRESH_BINARY)
 ```
-* 50: The intensity threshold. Pixels with intensity below this value are considered part of the black region.
+* 130: The intensity threshold. Pixels with intensity below this value are considered part of the black region.
+* 255: This is the maximum value to which the pixels greater than or equal to the threshold will be set. In this case, it’s 255, representing white.
+* cv2.THRESH_BINARY: This flag specifies that the thresholding mode is binary. Any pixel intensity greater than or equal to 130 becomes white (255), and any pixel intensity less than 130 becomes black (0).
 
 ### **4.Morphological Refinement**
 To improve the quality of detection, we perform morphological operations. These operations help refine the binary mask by removing noise, filling gaps, and improving the continuity of detected road areas.
