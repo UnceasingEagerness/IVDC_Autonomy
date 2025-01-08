@@ -19,11 +19,11 @@ def detect_black_road(video_path, delay):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Threshold to detect black regions
-        _, binary = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY)
+        _, binary = cv2.threshold(gray, 130, 255, cv2.THRESH_BINARY)
         
 
         # Morphological operations to refine detection
-        kernel_line = cv2.getStructuringElement(cv2.MORPH_RECT, (90, 1))
+        kernel_line = cv2.getStructuringElement(cv2.MORPH_RECT, (1,1))
         refined_binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel_line)
 
         kernel_fill = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10, 10))
