@@ -12,8 +12,9 @@ The program can process either a video file or a webcam feed. The video is read 
 ```python
 cap = cv2.VideoCapture(video_path)
 ```
-Here you can add your video file path or put Zero if you want to use WEBCAM
-
+* If you want to use a video file, provide the full path to the file.
+* For webcam input, set video_path = 0.
+  
 ## ***Preprocessing***
 ### **2. Grayscale Conversion**  
 Each frame is converted to grayscale for easier processing. Grayscale reduces computation by focusing on intensity values rather than color channels.
@@ -21,18 +22,18 @@ Each frame is converted to grayscale for easier processing. Grayscale reduces co
 ```python  
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 ```
-We prefer grayscale image over a colour image because it has only one color channel(reduced data size) which increases the computation speed.Also it requires less memeory storage(occupies a third of the space required by RGB images).
+* We prefer grayscale image over a colour image because it has only one color channel(reduced data size) which increases the computation speed.Also it requires less memeory storage(occupies a third of the space required by RGB images).
+* Intensity values range from 0 (black) to 255 (white), helping highlight the road's dark regions more clearly.
 
 ### **3.Black Region Detection(Thresholding)**
 Thresholding is applied to detect dark regions in the grayscale image, isolating black road sections:
 ```python  
-_, binary = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY_INV)
+_, binary = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY)
 ```
 * 50: The intensity threshold. Pixels with intensity below this value are considered part of the black region.
-* cv2.THRESH_BINARY_INV: Inverts the binary output, making dark areas white in the binary mask.
 
 ### **4.Morphological Refinement**
-Morphological operations are applied to clean up noise and refine the detected black road region.
+To improve the quality of detection, we perform morphological operations. These operations help refine the binary mask by removing noise, filling gaps, and improving the continuity of detected road areas.
 
 ***Line Refinement:***
 A rectangular kernel is used for detecting continuous lines and filling gaps:
@@ -51,6 +52,7 @@ kernel_fill = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10, 10))
 refined_binary = cv2.morphologyEx(refined_binary, cv2.MORPH_CLOSE, kernel_fill)
 
 ```
+* The MORPH_ELLIPSE kernel helps smooth out irregularities and fills small gaps in the detected regions.
 
 ### **5.Display Results**
 The original frame and the refined binary mask showing the detected black road are displayed side by side.
@@ -62,6 +64,9 @@ cv2.imshow("Detected Black Road", refined_binary)
 
 ### **6. Playback Control**
 The program includes a playback delay to control the speed of frame rendering. Press the q key to exit.
+```python
+delay = 50  # Adjust for faster or slower playback
+```
 
 
 ## ****HOW TO USE****
@@ -98,6 +103,7 @@ delay = 50  # Adjust for faster or slower playback
 
 ## ****Example Output****
 When applied to a video, the program highlights black road areas as white regions in the binary mask.
+
 
 
 
