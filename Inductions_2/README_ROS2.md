@@ -84,9 +84,9 @@ grid_msg.header.frame_id = 'map'
 * Meta Information:
      * Resolution: Specifies the size of each cell in meters:
 ```python
-
 meta.resolution = 0.01  # 1 cm per cell
 ```
+
      * Width and Height: Match the binary mask dimensions.
      * Origin: The bottom-left corner of the grid is at (0, 0).
 The OccupancyGrid is then published to the /occupancy_grid topic.
