@@ -26,10 +26,10 @@ class BlackRoadDetectionNode(Node):
 
         # Step 2: Threshold to detect black regions
         # Black pixels will have lower intensity values, so use a low threshold
-        _, binary = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY)
+        _, binary = cv2.threshold(gray, 130, 255, cv2.THRESH_BINARY)
 
         # Step 3: Apply morphological operations to refine the road
-        kernel_line = cv2.getStructuringElement(cv2.MORPH_RECT, (90, 1))  # Horizontal line detection
+        kernel_line = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))  # Horizontal line detection
         refined_binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel_line)
 
         # Use another morphological operation to fill gaps
